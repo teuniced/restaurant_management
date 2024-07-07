@@ -8,15 +8,16 @@ public class ManagementMain {
 	
 	private Scanner scanner;
 	
-	
-	public ManagementMain() {
-		scanner = new Scanner(System.in);
-	}
-	
+	//Main run() method
 	public void run() {
 		System.out.println("Welcome!");
 
 	}
+	public ManagementMain() {
+		scanner = new Scanner(System.in);
+	}
+	
+
 	
 	
 	
