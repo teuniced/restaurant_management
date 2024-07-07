@@ -1,6 +1,6 @@
 package com.bptn.tolu.restaurant_management._project;
 
-//importing the scanner util
+//importing  scanner util
 import  java.util.Scanner;
 
 
