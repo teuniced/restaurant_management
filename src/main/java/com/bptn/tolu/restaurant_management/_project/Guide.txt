@@ -1,0 +1,16 @@
+Here is a > 400-word guide to help you understand this restaurant management project effectively.
+
+To create a solid foundation for this management system application, I will start by clearly defining the project scope requirements (Submitted in week 3). 
+Next, I will identify the key features I intend to implement, such as user, menu management, order processing, customer management, inventory tracking, billing, and recipe management. 
+Identifying the different features, classes and methods would help separate concerns into different classes. 
+Each feature would be encapsulated in its own class, promoting organization and maintenance following the encapsulation SOLID principles. 
+I would be employing object-oriented principles as well, such as inheritance and interfaces where appropriate. 
+For the recipe book, I will utilize text files as, implementing proper file I/O operations. 
+I would also implement robust error handling using try-catch blocks and custom exceptions, especially for user input validation. 
+I will utilize Java streams and functional programming for operations like filtering menu items, calculating order totals, or processing inventory updates, leading to more concise and readable code. 
+For user authentication, I have implemented a simple login system with different access levels for staff and management. 
+Lastly, I will also design a text-based command-line interface for interaction by implementing a main loop (in the main class) that displays options and processes user input. 
+For my development, I have followed good coding practices, used meaningful methods, classes, and variable names, and 
+I have added comments to help me remember my thought process and help other developers go through my code. 
+I have also controlled my project using Git, making regular commits as I implemented and tested each feature. 
+In the future, as time permits, I intend to consider implementing unit tests if I decide to develop a better version of the program. 
