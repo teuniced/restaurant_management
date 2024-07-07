@@ -123,6 +123,4 @@ public class Menu {
 
 
 //	public static void main(String[] args) { //i didnt need a main..find out why and how that worked
-//		
-//
 //	}
