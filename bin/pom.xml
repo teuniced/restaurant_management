@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.bptn</groupId>
-  <artifactId>restaurant_management</artifactId>
+  <artifactId>restaurant-management</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>restaurant_management</name>
-  <description>A simple restaurant_management.</description>
+  <name>restaurant-management</name>
+  <description>A simple restaurant-management.</description>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -19,7 +19,7 @@
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
 
-   <dependencies>
+  <dependencies>
 	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
 	<dependency>
 	  <groupId>org.junit.jupiter</groupId>
