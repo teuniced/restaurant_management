@@ -7,8 +7,6 @@ import java.util.Scanner;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-
-
 public class Menu {
 	
 	// tutorials point ANSI color
@@ -55,7 +53,7 @@ public class Menu {
 			System.out.println("2) View Menu For the Current Day");
 			System.out.println("3) View Special Menu");
 			System.out.println("4) Return to Main Menu");
-			System.out.println(green_text + "5) Enter your Choice:\n" + reset );
+			System.out.println(green_text + "5) Enter your Choice: " + reset + "\n");
 			
 			userchoice = scanner.nextInt();
 			scanner.nextLine();
