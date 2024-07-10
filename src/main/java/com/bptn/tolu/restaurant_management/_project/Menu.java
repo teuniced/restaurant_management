@@ -91,7 +91,7 @@ public class Menu {
 		
 	}
 	
-	//MENU FOR THE DAY 
+	//MENU FOR THE DAY check for exceptions
 	private void viewMenuForDay(Scanner scanner) {
 		System.out.println("Enter day of the week: ");
 		String dayoftheweek = scanner.nextLine();
@@ -104,7 +104,7 @@ public class Menu {
 	}
 	
 	
-	//SPECIAL MENU
+	//SPECIAL MENU. check for exceptions
 	private void filterMenuWithE() {
 		List<String> dayswithE = weeklyMenu.keySet().stream()
 				.filter(dayoftheweek -> dayoftheweek.toLowerCase()
