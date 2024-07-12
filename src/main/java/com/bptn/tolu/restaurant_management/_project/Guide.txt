@@ -13,4 +13,7 @@ Lastly, I will also design a text-based command-line interface for interaction b
 For my development, I have followed good coding practices, used meaningful methods, classes, and variable names, and 
 I have added comments to help me remember my thought process and help other developers go through my code. 
 I have also controlled my project using Git, making regular commits as I implemented and tested each feature. 
-In the future, as time permits, I intend to consider implementing unit tests if I decide to develop a better version of the program. 
+I have implemented 3 JUnit tests to check for ensure menu management doesn't throw exceptions, 
+	check if the authentication process doesn't throw exceptions and check if the recipe file exists and is not empty.
+In the future, as time permits, I intend to consider implementing more unit tests if I decide to develop a better version of the program. 
+

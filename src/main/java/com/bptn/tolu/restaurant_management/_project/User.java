@@ -3,7 +3,7 @@ package com.bptn.tolu.restaurant_management._project;
 public class User {
 
 	private String username;
-	private String password; //thought about using id
+	private String password; 
 	private boolean recipeAccess;
 	
 	
@@ -13,7 +13,8 @@ public class User {
 		this.recipeAccess = recipeAccess;
 	}
 
-
+	
+	// Getter methods,  password check and recipe access  methods below 
 	public String getUsername() {
 		return username; //everyone gets username "staff"
 	}

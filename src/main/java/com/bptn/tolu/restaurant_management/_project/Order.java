@@ -11,10 +11,6 @@ public class Order {
 	private LocalDateTime timestamp;
 
 
-	//		public Order(Customer customer, String orderDetails, double price) {
-	//		this (customer, orderDetails, price, LocalDateTime.now());
-	//	}
-
 	public Order(Customer customer, String orderDetails, double price, LocalDateTime timestamp) {
 		this.customer = customer;
 		this.orderDetails = orderDetails;
@@ -23,7 +19,7 @@ public class Order {
 		//this.ordertime = LocalDateTime.now()
 	}
 
-
+	// Getter methods
 	public Customer getCustomerName() {
 		return customer;
 	}
@@ -40,6 +36,8 @@ public class Order {
 		return timestamp;
 	}
 
+	
+	 //The String representation of the Order object
 	@Override
 	public String toString() {
 		return timestamp.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + customer.getName() + customer.getPhoneNumber()
@@ -47,3 +45,16 @@ public class Order {
 
 	}
 }
+
+//OrderManager Class:
+//Purpose: Manages collection of orders and order operations
+//Fields: menu, customerManager, orders list, file path for orders
+//Key methods:
+//- manageOrders: User interface for order management
+//- enterANewOrder: Creates and saves new orders
+//- saveOrderToFile, loadOrdersFromFile: File I/O operations
+//- viewAllOrders: Displays all orders
+//OOP: Encapsulation
+//SOLID: Single Responsibility (focuses on order management)
+//- Use of Java 8+ features (LocalDateTime, functional interfaces)
+//- Error handling for file operations

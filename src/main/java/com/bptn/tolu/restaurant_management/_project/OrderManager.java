@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
-import java.time.LocalDateTime;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -16,12 +15,10 @@ import java.io.FileWriter;
 
 public class OrderManager {
 
-	// tutorials point ANSI color
+	//ANSI color codes for console output
 	String reset = "\u001B[0m";
 	String red_text = "\u001B[31m"; 
 	String green_text = "\u001B[32m";
-
-
 
 
 	private Menu menu;
@@ -30,15 +27,15 @@ public class OrderManager {
 	private String OrdersFilePath = "cxorders.txt";
 
 
-
+	//Constructor to initialize all fields
 	public OrderManager(CustomerManager customerManager) {
-		//this.menu = menu;
 		this.orders = new ArrayList<>();
 		this.customerManager = customerManager;
 		loadOrdersFromFile();
 	}
 
 
+	//Main method for user interaction and orders operations
 	public void manageOrders(Scanner scanner) {
 		int userchoice;
 
@@ -72,7 +69,7 @@ public class OrderManager {
 		} while (userchoice != 3);
 	}	
 
-	//order
+	//Method for starting a new order
 	private void enterANewOrder(Scanner scanner) {
 		Customer customer;
 
@@ -106,14 +103,23 @@ public class OrderManager {
 		System.out.println("Order added successfully!");
 	}
 
+	
+	//Method for saving a new order
 	private void saveOrderToFile(Order order) {
-		try (PrintWriter out = new PrintWriter(new FileWriter(OrdersFilePath, true))) {
-			out.println(order.toString());
-		} catch (IOException e) {
-			System.out.println("Error saving order to file: " + e.getMessage());
-		}
+	    String orderFormat = "%s|%s|%s|%s|%.2f%n";
+	    try (PrintWriter out = new PrintWriter(new FileWriter(OrdersFilePath, true))) {
+	        out.printf(orderFormat,
+	            order.getTimestamp().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+	            order.getCustomerName().getName(),
+	            order.getCustomerName().getPhoneNumber(),
+	            order.getOrderDetails(),
+	            order.getPrice());
+	    } catch (IOException e) {
+	        System.out.println("Error saving order to file: " + e.getMessage());
+	    }
 	}
-
+	
+	//Method for loading the orders from the file  
 	private void loadOrdersFromFile() {
 		try (BufferedReader reader = new BufferedReader(new FileReader(OrdersFilePath))) {
 			String line;
@@ -131,31 +137,39 @@ public class OrderManager {
 			System.out.println("We encountered an error while loading orders from file: " + e.getMessage());
 		}
 	}
+	
 
 	public void viewAllOrders() {
 		if (orders.isEmpty()) {
 			System.out.println("There are no orders to display.");
 		} else {
-			System.out.println("\nAll Orders:");
+			System.out.println("\n========== All Orders ==========");
+			System.out.printf("%-25s %-20s %-15s %-30s %s%n", 
+					"Date & Time", "Customer Name", "Phone Number", "Order Details", "Price");
+			System.out.println("--------------------------------------------------------------------------------------------------------");
+
 			for (Order order : orders) {
-				System.out.println(order);
+				System.out.printf("%-25s %-20s %-15s %-30s $%.2f%n",
+						order.getTimestamp().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+						order.getCustomerName().getName(),
+						order.getCustomerName().getPhoneNumber(),
+						order.getOrderDetails(),
+						order.getPrice());
 			}
+			System.out.println("---------------------------------------------------------------------------------------------------------");
 		}
 	}
 }
 
 
-
-
-
-
-//view all orders for the week?
-
-
-
-
-
-
+//Notes & References for Order and OrderManager classes
+//Order Class:
+//Purpose: Represents individual customer orders
+//Fields: customer, orderDetails, price, timestamp
+//Constructor: Initializes all fields
+//Methods: Getters for all fields, toString() for formatted output
+//OOP: Encapsulation
+//SOLID: Single Responsibility Principle
 
 
 

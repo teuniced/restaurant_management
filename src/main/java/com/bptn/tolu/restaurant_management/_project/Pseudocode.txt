@@ -3,83 +3,97 @@ possible Pseudocode for my project...
 
 //may want to use functional programming , might want to use try catch exceptions in java streams.
 
-
-// Main application class
-class RestaurantManagementApp
-    main()
-        initialize()
-        displayMainMenu()
-        handleUserInput()
-
+class ManagementMain
     initialize()
-        // Initialize necessary data structures and objects
+        Create Scanner, Menu, CustomerManager, OrderManager, RecipeBook, Authentication
+
+    run()
+        Show welcome message
+        while (user doesn't choose to exit)
+            If no user logged in
+                Attempt login
+            Display main menu
+            Get user choice
+            Handle user choice
 
     displayMainMenu()
-        // Display options for different features
+        Show options for different system features
 
-    handleUserInput()
-        // Process user input and call appropriate methods
+    getUserChoice()
+        Get and validate user input
 
-// Menu management
-class Menu
-    addItem()
-    updateItem()
-    deleteItem()
-    displayMenu()
+    manageUserChoice(choice)
+        Switch based on user's choice
+            Case 1: Manage Menu
+            Case 2: Process Orders
+            Case 3: Manage Customers
+            Case 4: Access Recipe Book (with permission check)
+            Case 5: View All Data
+            Case 6: Logout
+            Case 7: Exit
 
-// Order processing
-class Order
-    createOrder()
-    addItemToOrder()
-    calculateTotal()
-    processSpecialRequests()
+    viewAllData()
+        Show all customers and orders
 
-// Customer management
-class Customer
-    registerCustomer()
-    updateCustomerInfo()
-    displayCustomerDetails()
+    main()
+        ManagementMain instance
+        Call run() method
 
-// Inventory management
-class Inventory
-    updateInventory()
-    checkInventoryLevels()
-    restockItems()
+class Authentication
+    login(scanner)
 
-// Billing and payments
-class Billing
-    generateBill()
-    processPayment()
+    getCurrentUser()
+        Return current logged-in user
 
-// Recipe book
-class RecipeBook
-    addRecipe()
-    updateRecipe()
-    displayRecipe()
-    authorizeAccess()
-
-// User authentication
-class User
-    login()
     logout()
-    checkAuthorization()
+        Clear current user
 
-// Main program flow
-initialize()
-while (true)
-    displayMainMenu()
-    userChoice = getUserInput()
-    
-    switch (userChoice)
-        case 1: handleMenuManagement()
-        case 2: handleOrderProcessing()
-        case 3: handleCustomerManagement()
-        case 4: handleInventoryManagement()
-        case 5: handleBillingAndPayments()
-        case 6: handleRecipeBook()
-        case 7: exit()
+class CustomerManager
+    manageCustomers(scanner)
+        Show customer management menu
+        Handle user choice (add, view, return)
 
-    if (userWantsToExit)
-        break
+    addNewCustomer(scanner)
+        Get customer details
+        Create and save new customer
 
-shutdown()
+    viewAllCustomers()
+        Show all customers
+
+    loadCustomersFromFile()
+        Read customer data from file
+
+    saveCustomerToFile(customer)
+        Write customer data to file
+
+class OrderManager
+    manageOrders(scanner)
+        Show order management menu
+        Handle user choice (add, view, return)
+
+    enterANewOrder(scanner)
+        Get order details
+        Create and save new order
+
+    viewAllOrders()
+        Show all orders
+
+    loadOrdersFromFile()
+        Read order data from file
+
+    saveOrderToFile(order)
+        Write order data to file
+
+class RecipeBook
+    loadRecipes()
+        Read recipes from file
+
+    viewRecipes(user)
+        If the user has access
+            Show all recipes
+        Else
+            Show access denied message
+
+main()
+    Create ManagementMain instance
+    Call run() method

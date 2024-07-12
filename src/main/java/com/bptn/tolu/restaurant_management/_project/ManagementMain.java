@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class ManagementMain {
 
+	
+	//Instance variables with references to other class objects
 	private Scanner scanner;
 	private Menu menu;
 	private CustomerManager customerManager;
@@ -12,7 +14,7 @@ public class ManagementMain {
 	private RecipeBook recipeBook;
 	private  Authentication auth;
 
-	// tutorials point ANSI color
+	//ANSI color codes for console output 
 	String reset = "\u001B[0m";
 	String red_text = "\u001B[31m"; 
 	String green_text = "\u001B[32m";
@@ -26,7 +28,7 @@ public class ManagementMain {
 	String yellow_bg = "\u001B[43m";
 	String magenta_bg = "\u001B[45m";
 
-	// scanner input for user
+	//Constructor initializes the entire program and its components
 	public ManagementMain() {
 		scanner = new Scanner(System.in);
 		menu = new Menu();
@@ -39,7 +41,7 @@ public class ManagementMain {
 
 	// Main run() method
 	public void run() {
-		System.out.println(green_text + "Restaurant Manageement System!" + reset);
+		System.out.println(green_text + "Restaurant Management System!" + reset);
 
 		int userchoice = 0 ;
 		do {
@@ -51,7 +53,7 @@ public class ManagementMain {
 			displayMainMenu();
 			userchoice = getUserChoice();
 			manageUserChoice(userchoice);
-		} while (userchoice != 6  || userchoice != 7 );
+		} while (userchoice != 6 );
 
 		scanner.next();
 		scanner.close();
@@ -64,8 +66,8 @@ public class ManagementMain {
 		System.out.println("3) Manage Customers");
 		System.out.println("4) Manage Recipe Book");
 		System.out.println("5) View All Data");
-		System.out.println("6) logout");
-		System.out.println(green_text + "7) Exit" + reset);
+		System.out.println(red_text + "6) logout" + reset);
+
 	}
 
 	private int getUserChoice() {
@@ -98,7 +100,6 @@ public class ManagementMain {
 			break;
 
 		case 4:
-			System.out.println("Sign in then search for Recipes!");
 			if (auth.getCurrentUser().hasRecipeAccess()){
 				recipeBook.viewRecipes(auth.getCurrentUser());
 			} else {
@@ -112,12 +113,7 @@ public class ManagementMain {
 			break;
 
 		case 6:
-			System.out.println("Ready to logout?");
 			auth.logout();
-			break;
-
-		case 7:
-			System.out.println("Exiting, Comeback again!");
 			break;
 		default:
 			System.out.println(red_text + "Kindly select a valid choice! \n " + reset);
@@ -137,3 +133,41 @@ public class ManagementMain {
 		app.run();
 	}
 }
+
+
+
+
+
+//Notes & References
+//Purpose: Central control for the restaurant management system
+//Its components:
+//- Scanner for user input
+//- Instances of Menu, CustomerManager, OrderManager, RecipeBook, Authentication
+//ANSI color codes for console formatting
+//Methods:
+//- Constructor: Initializes all system components
+//- run(): Main loop for program execution
+//- displayMainMenu(): Shows main menu options
+//- getUserChoice(): Handles user input for menu selection
+//- manageUserChoice(): Directs program flow based on user selection
+//- viewAllData(): Displays all customer and order data
+//- main(): Entry point, creates and runs ManagementMain instance
+//OOP Concepts-Encapsulation, SRP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
