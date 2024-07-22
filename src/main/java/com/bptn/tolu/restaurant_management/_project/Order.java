@@ -36,12 +36,12 @@ public class Order {
 		return timestamp;
 	}
 
-	
+
 	 //The String representation of the Order object
 	@Override
 	public String toString() {
 		return timestamp.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + customer.getName() + customer.getPhoneNumber()
-		+ orderDetails + String.format("%.2f", price) ;	
+		+ orderDetails + String.format("%.2f", price) ;
 
 	}
 }

@@ -7,19 +7,19 @@ import java.util.Scanner;
 public class Authentication {
 
 	private Map<String, User> users;
-	
+
 	private User currentuser;
-	
+
 	//This constructor initializes this Map field with a specific implementation (HashMap).
 	public Authentication() {
 		users = new HashMap<>();
-		
+
 		users.put("headchef", new User("headchef", "North01", true));
 		users.put("souschef", new User("souschef", "South02", true));
 		users.put("staff", new User("staff", "staff01", false));
-		
+
 	}
-	
+
 	public boolean login(Scanner scanner) {
 		System.out.print("Please enter your username:");
 		String username = scanner.nextLine();
@@ -31,24 +31,37 @@ public class Authentication {
 			currentuser = user;
 			System.out.println("Welcome,  " + username + "!" );
 			return true;
-			
+
 		}else {
 			System.out.println("We're sorry but that's not a valid username or password. Please try again.");
 			return false;
-		}	
+		}
 	}
-	
+
 	public User getCurrentUser() {
 		return currentuser;
 	}
-	
-	
+
+
 	public void logout() {
 		currentuser = null;
 		System.out.println("Logged out successfully! Come back again!");
 	}
-		
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Notes & References
 // Imports Java utils: HashMap, Map, Scanner

@@ -1,17 +1,15 @@
 package com.bptn.tolu.restaurant_management._project;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeBook {
 	private List<String> recipes;
-	private static final String recipe_file = "/Users/tead/Documents"
-			+ "/Projects/workspace-academy-java/restaurant_management"
-			+ "/src/main/java/com/bptn/tolu/restaurant_management/_project/recipes.txt";
-	
+	private static final Path recipe_file = Paths.get(System.getProperty("user.dir"), "recipes.txt");
 
 	public RecipeBook() {
 		recipes = new ArrayList<>();
@@ -20,23 +18,24 @@ public class RecipeBook {
 
 	// Load recipes method for retrieving the file
 	private void loadRecipes() {
-		try (BufferedReader reader = new BufferedReader(new FileReader(recipe_file))) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				recipes.add(line);
+		try {
+			if (!Files.exists(recipe_file)) {
+				System.out.println("We encountered an error while loading recipes from file. ");
+			} else {
+				recipes = Files.readAllLines(recipe_file);
+				System.out.println("Current recipes available in the system are: " + recipes);
 			}
 		} catch (IOException e) {
 			System.out.println("We encountered an error while loading recipes from file: " + e.getMessage());
 		}
 	}
 
-	
-    // View recipes  method (successful for staff with access control)
+	// View recipes method (successful for staff with access control)
 	public void viewRecipes(User user) {
 		if (user.hasRecipeAccess()) {
 			System.out.println("Please find the restaurant's recipes below:");
-			for (int i = 0; i < recipes.size(); i ++) {
-				System.out.println( (i + 1) + ". " + recipes.get(i));
+			for (int i = 0; i < recipes.size(); i++) {
+				System.out.println((i + 1) + ". " + recipes.get(i));
 			}
 
 		} else {
@@ -45,6 +44,25 @@ public class RecipeBook {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Notes & References
 //Class: RecipeBook - manages recipes for the restaurant

@@ -1,13 +1,13 @@
 package com.bptn.tolu.restaurant_management._project;
 
 public class Customer {
-	
-	
+
+
 	//Storing all this information in a txt file
 	private String name;
 	private String phoneNumber;
-	
-	
+
+
 	public Customer(String name, String phoneNumber) {
 		this.name = name;
 		this.phoneNumber = phoneNumber;
@@ -30,7 +30,7 @@ public class Customer {
 		return "Customer [name=" + name + ", phoneNumber=" + phoneNumber + "]";
 	}
 
-	
+
 }
 
 //Notes & References

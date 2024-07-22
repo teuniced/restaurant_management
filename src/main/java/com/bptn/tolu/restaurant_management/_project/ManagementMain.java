@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class ManagementMain {
 
-	
+
 	//Instance variables with references to other class objects
 	private Scanner scanner;
 	private Menu menu;
@@ -14,28 +14,21 @@ public class ManagementMain {
 	private RecipeBook recipeBook;
 	private  Authentication auth;
 
-	//ANSI color codes for console output 
+	//ANSI color codes for console output
 	String reset = "\u001B[0m";
-	String red_text = "\u001B[31m"; 
+	String red_text = "\u001B[31m";
 	String green_text = "\u001B[32m";
 	String yellow_text = "\u001B[33m";
-	String blue_bg = "\u001B[44m";
-	String cyan_bg = "\u001B[46m";
-	String black_bg = " \u001B[40m";
-	String red_bg = "\u001B[41m";
-	String white_bg = "\u001B[47m";
-	String green_bg = "\u001B[42m";
-	String yellow_bg = "\u001B[43m";
-	String magenta_bg = "\u001B[45m";
+
 
 	//Constructor initializes the entire program and its components
 	public ManagementMain() {
-		scanner = new Scanner(System.in);
-		menu = new Menu();
-		customerManager = new CustomerManager();
-		orderManager = new OrderManager(customerManager);
-		recipeBook = new RecipeBook();
-		auth = new Authentication();
+	  this.scanner = new Scanner(System.in);
+		this.menu = new Menu();
+		this.customerManager = new CustomerManager();
+		this.orderManager = new OrderManager(customerManager);
+		this.recipeBook = new RecipeBook();
+		this.auth = new Authentication();
 
 	}
 
@@ -44,7 +37,7 @@ public class ManagementMain {
 		System.out.println(green_text + "Restaurant Management System!" + reset);
 
 		int userchoice = 0 ;
-		do {
+		do{
 			if (auth.getCurrentUser() == null) {
 				if (!auth.login(scanner)) {
 					continue;
@@ -54,8 +47,6 @@ public class ManagementMain {
 			userchoice = getUserChoice();
 			manageUserChoice(userchoice);
 		} while (userchoice != 6 );
-
-		scanner.next();
 		scanner.close();
 	}
 
@@ -75,12 +66,11 @@ public class ManagementMain {
 		while (!scanner.hasNextInt()) {
 			System.out.println(red_text + "Kindly select a valid choice! \n" + reset);
 			scanner.next();
+
 		}
 		return scanner.nextInt();
-		//int userchoice = scanner.nextInt();
-		//		scanner.nextLine();
-		//		return userchoice;
 	}
+
 
 	private void manageUserChoice(int userchoice) {
 		switch (userchoice) {
@@ -121,6 +111,7 @@ public class ManagementMain {
 		}
 	}
 
+
 	private void viewAllData() {
 		System.out.println(".........ALL RESTAURANT DATA..........");
 		customerManager.viewAllCustomers();
@@ -128,10 +119,18 @@ public class ManagementMain {
 
 	}
 
+
+
 	public static void main(String[] args) {
-		ManagementMain app = new ManagementMain();
-		app.run();
+		try {
+	        ManagementMain app = new ManagementMain();
+	        app.run();
+	    } catch (Exception e) {
+	        System.err.println("An error occurred: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 	}
+
 }
 
 

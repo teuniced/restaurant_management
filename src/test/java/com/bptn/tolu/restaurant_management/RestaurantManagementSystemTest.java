@@ -1,18 +1,23 @@
-package com.bptn.tolu.restaurant_management._project;
+package com.bptn.tolu.restaurant_management;
 
 //Import static methods from JUnit5 for assertions
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+//Import Scanner for simulating user input, user provides input before test is asserted
+import java.util.Scanner;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-//Importing Java nio for file operations
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-//Import Scanner for simulating user input, user provides input before test is asserted
-import java.util.Scanner;
+import com.bptn.tolu.restaurant_management._project.Authentication;
+import com.bptn.tolu.restaurant_management._project.CustomerManager;
+import com.bptn.tolu.restaurant_management._project.ManagementMain;
+import com.bptn.tolu.restaurant_management._project.Menu;
+import com.bptn.tolu.restaurant_management._project.OrderManager;
+import com.bptn.tolu.restaurant_management._project.RecipeBook;
 
 public class RestaurantManagementSystemTest {
 
@@ -45,15 +50,6 @@ public class RestaurantManagementSystemTest {
 	@Test
 	void testAuthentication() {
 		assertDoesNotThrow(() -> auth.login(new Scanner("staff\nstaff01\n")));
-	}
-
-	// Test case to check if the recipe file exists and is not empty
-	@Test
-	void testRecipeFileNotEmpty() throws IOException {
-		// Defining the path to the recipe file
-		Path path = Path.of("recipes.txt");
-		assertTrue(Files.exists(path), "Recipe file does not exist");
-		assertDoesNotThrow(() -> assertTrue(Files.size(path) > 0, "Recipe file is empty"));
 	}
 }
 

@@ -1,15 +1,17 @@
 package com.bptn.tolu.restaurant_management._project;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
-import java.io.PrintWriter;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
+
 
 
 
@@ -17,21 +19,22 @@ public class OrderManager {
 
 	//ANSI color codes for console output
 	String reset = "\u001B[0m";
-	String red_text = "\u001B[31m"; 
+	String red_text = "\u001B[31m";
 	String green_text = "\u001B[32m";
 
 
 	private Menu menu;
 	private CustomerManager customerManager;
 	private List<Order> orders;
-	private String OrdersFilePath = "cxorders.txt";
+	private Path ordersFilePath;
 
 
 	//Constructor to initialize all fields
 	public OrderManager(CustomerManager customerManager) {
 		this.orders = new ArrayList<>();
 		this.customerManager = customerManager;
-		loadOrdersFromFile();
+		this.ordersFilePath = Paths.get("cxorders.txt");
+		loadOrdersFromFile(ordersFilePath);
 	}
 
 
@@ -61,13 +64,12 @@ public class OrderManager {
 				break;
 			case 3:
 				System.out.println("Returning to Main Menu");
-				break;
-
+				return;
 			default:
-				System.out.println(red_text + "Kindly select a valid choice!" + reset);		
+				System.out.println(red_text + "Kindly select a valid choice!" + reset);
 			}
 		} while (userchoice != 3);
-	}	
+	}
 
 	//Method for starting a new order
 	private void enterANewOrder(Scanner scanner) {
@@ -89,62 +91,88 @@ public class OrderManager {
 			customer = customerManager.addNewCustomer(scanner);
 		}
 
+
 		System.out.print("Enter order details: ");
 		String orderDetails = scanner.nextLine();
 
-		System.out.print("Enter order price: $");
-		double price = scanner.nextDouble();
-		scanner.nextLine(); // Consume newline
+		double price = 0;
+		boolean validprice = false;
+		while (!validprice){
+			try {
+			System.out.print("Enter order price: $");
+			price = Double.parseDouble(scanner.nextLine());
+			validprice = true;
+		} catch (NumberFormatException e) {
+			System.out.println(red_text + "Kindly select a valid choice! \n"  + e.getMessage() + reset);
+		}
+
 
 		Order order = new Order(customer, orderDetails, price, LocalDateTime.now());
 		orders.add(order);
-		saveOrderToFile(order);
+		saveOrderToFile(order, ordersFilePath);
 
 		System.out.println("Order added successfully!");
+		}
 	}
 
-	
+
+
+
 	//Method for saving a new order
-	private void saveOrderToFile(Order order) {
-	    String orderFormat = "%s|%s|%s|%s|%.2f%n";
-	    try (PrintWriter out = new PrintWriter(new FileWriter(OrdersFilePath, true))) {
-	        out.printf(orderFormat,
-	            order.getTimestamp().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-	            order.getCustomerName().getName(),
-	            order.getCustomerName().getPhoneNumber(),
-	            order.getOrderDetails(),
-	            order.getPrice());
-	    } catch (IOException e) {
+	private void saveOrderToFile(Order order, Path path) {
+
+	    try {
+	    	if(!Files.exists(path)) {
+	    		Files.createFile(path);
+	    	}
+	    	String orderFormat = "%s|%s|%s|%.2f|%s%n";
+	    	 String orderString = String.format(orderFormat,
+	    			 order.getCustomerName().getName(),
+	    			 order.getCustomerName().getPhoneNumber(),
+	    			 order.getOrderDetails(),
+	    			 order.getPrice(),
+	    			 order.getTimestamp().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+				FileWriter writer = new FileWriter(new File(path.toUri()), true);
+				writer.write(orderString);
+				writer.close();
+				System.out.println("Order has been successfuly saved to file.");
+	    } catch (Exception e) {
 	        System.out.println("Error saving order to file: " + e.getMessage());
 	    }
 	}
-	
-	//Method for loading the orders from the file  
-	private void loadOrdersFromFile() {
-		try (BufferedReader reader = new BufferedReader(new FileReader(OrdersFilePath))) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				String[] parts = line.split("\\|");
-				if (parts.length == 5) {
-					LocalDateTime timestamp = LocalDateTime.parse(parts[0].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-					Customer customer = new Customer(parts[1].trim(), parts[2].trim());
-					String orderDetails = parts[3].trim();
-					double price = Double.parseDouble(parts[4].trim().substring(1)); // to remove the  $ dollar '$' sign
-					orders.add(new Order(customer, orderDetails, price, timestamp));
+
+
+
+
+
+	//Method for loading the orders from the file
+	private void loadOrdersFromFile(Path path) {
+		 try {
+		    	if(!Files.exists(ordersFilePath)) {
+		    		Files.createFile(ordersFilePath);
+		    		return;
+		    	}
+
+		 try (Scanner scanner = new Scanner(new File(path.toUri()))) {
+				while (scanner.hasNextLine()) {
+//					String data = scanner.nextLine();
+//					System.out.println("Orders available in file: " + data);
 				}
-			}
-		} catch (IOException e) {
+
+		} catch (Exception e) {
 			System.out.println("We encountered an error while loading orders from file: " + e.getMessage());
 		}
+	} catch(IOException e) {
+		System.out.println("We encountered an error while creating/loading the file: " + e.getMessage());
 	}
-	
+}
 
 	public void viewAllOrders() {
 		if (orders.isEmpty()) {
 			System.out.println("There are no orders to display.");
 		} else {
 			System.out.println("\n========== All Orders ==========");
-			System.out.printf("%-25s %-20s %-15s %-30s %s%n", 
+			System.out.printf("%-25s %-20s %-15s %-30s %s%n",
 					"Date & Time", "Customer Name", "Phone Number", "Order Details", "Price");
 			System.out.println("--------------------------------------------------------------------------------------------------------");
 
@@ -160,6 +188,23 @@ public class OrderManager {
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //Notes & References for Order and OrderManager classes
