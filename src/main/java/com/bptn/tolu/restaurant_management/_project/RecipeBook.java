@@ -23,7 +23,7 @@ public class RecipeBook {
 				System.out.println("We encountered an error while loading recipes from file. ");
 			} else {
 				recipes = Files.readAllLines(recipe_file);
-				System.out.println("Current recipes available in the system are: " + recipes);
+				//System.out.println("Current recipes available in the system are: " + recipes);
 			}
 		} catch (IOException e) {
 			System.out.println("We encountered an error while loading recipes from file: " + e.getMessage());

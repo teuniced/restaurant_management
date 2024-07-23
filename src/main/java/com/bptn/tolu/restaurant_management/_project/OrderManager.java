@@ -71,7 +71,17 @@ public class OrderManager {
 		} while (userchoice != 3);
 	}
 
-	//Method for starting a new order
+	
+	//Custom Exception  
+	public class  NegativeValueException extends Exception{
+		public NegativeValueException (String errorMessage) {
+			super(errorMessage);
+		}
+	}
+	
+	
+	
+	// Method for starting a new order
 	private void enterANewOrder(Scanner scanner) {
 		Customer customer;
 
@@ -91,31 +101,32 @@ public class OrderManager {
 			customer = customerManager.addNewCustomer(scanner);
 		}
 
-
 		System.out.print("Enter order details: ");
 		String orderDetails = scanner.nextLine();
 
 		double price = 0;
 		boolean validprice = false;
-		while (!validprice){
+		while (!validprice) {
 			try {
-			System.out.print("Enter order price: $");
-			price = Double.parseDouble(scanner.nextLine());
-			validprice = true;
-		} catch (NumberFormatException e) {
-			System.out.println(red_text + "Kindly select a valid choice! \n"  + e.getMessage() + reset);
+				System.out.print("Enter order price: $");
+				price = Double.parseDouble(scanner.nextLine());
+				if (price < 0) {
+					throw new NegativeValueException("Price is not valid, enter a number greater than Zero!");
+				}
+				validprice = true;
+			} catch (NumberFormatException e) {
+				System.out.println(red_text + "Kindly enter a valid number! \n" + e.getMessage() + reset);
+			} catch (NegativeValueException e) {
+				System.out.println(red_text + "Kindly enter a valid number! \n" + e.getMessage() + reset);
+			}
 		}
-
 
 		Order order = new Order(customer, orderDetails, price, LocalDateTime.now());
 		orders.add(order);
 		saveOrderToFile(order, ordersFilePath);
 
 		System.out.println("Order added successfully!");
-		}
 	}
-
-
 
 
 	//Method for saving a new order

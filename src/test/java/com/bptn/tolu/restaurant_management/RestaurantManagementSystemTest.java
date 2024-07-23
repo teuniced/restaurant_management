@@ -1,6 +1,6 @@
 package com.bptn.tolu.restaurant_management;
 
-//Import static methods from JUnit5 for assertions
+//Import JUnit5 for assertions
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.io.IOException;
@@ -50,6 +50,8 @@ public class RestaurantManagementSystemTest {
 	@Test
 	void testAuthentication() {
 		assertDoesNotThrow(() -> auth.login(new Scanner("staff\nstaff01\n")));
+		assertDoesNotThrow(() -> auth.login(new Scanner("headchef\nNorth01\n")));
+		assertDoesNotThrow(() -> auth.login(new Scanner("souschef\nSouth02\n")));
 	}
 }
 

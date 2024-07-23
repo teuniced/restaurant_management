@@ -19,7 +19,8 @@ public class User {
 		return username; //everyone gets username "staff"
 	}
 
-
+	
+	
 	public boolean checkPassword(String userPassword) {
 		return password.contains(userPassword);
 	}
@@ -28,6 +29,5 @@ public class User {
 	public boolean hasRecipeAccess() {
 		return recipeAccess;
 	}
-
-
+	
 }
